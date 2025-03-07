@@ -1,9 +1,13 @@
 import { lazy, Suspense } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 
-const ExampleDetail = ({ hookName, exampleName, setSelectedExample }) => {
+const ExampleDetail = () => {
+  const { hookName, exampleId } = useParams();
+  const navigate = useNavigate();
+
   // Dynamically import the example component
   const ExampleComponent = lazy(() =>
-    import(`../hooks/${hookName}/${exampleName}.jsx`).catch(() => ({
+    import(`../hooks/${hookName}/${exampleId}.jsx`).catch(() => ({
       default: () => <p>Example not found.</p>,
     }))
   );
@@ -12,14 +16,16 @@ const ExampleDetail = ({ hookName, exampleName, setSelectedExample }) => {
     <div className="p-4">
       {/* Back button to return to example list */}
       <button
-        onClick={() => setSelectedExample(null)}  // Ensure state updates correctly
+        onClick={() => navigate(-1)}
         className="mb-4 text-gray-600 hover:underline"
       >
         Back to Examples
       </button>
 
-      <h2 className="text-xl font-bold mb-4">{hookName} - {exampleName}</h2>
-      
+      <h2 className="text-xl font-bold mb-4">
+        {hookName} - {exampleId}
+      </h2>
+
       <Suspense fallback={<p>Loading...</p>}>
         <ExampleComponent />
       </Suspense>

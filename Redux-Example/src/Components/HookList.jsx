@@ -1,15 +1,15 @@
-const hooks = ["useState", "useEffect", "useContext", "useRef", "useReducer", "useMemo", "useCallback"];
+import { Link } from "react-router-dom";
 
-const HookList = ({ setSelectedHook }) => {
+const hooks = ["useState", "useEffect", "useCallback", "useMemo", "useContext", "useReducer", "useRef"];
+
+const HookList = () => {
   return (
-    <div className="p-4">
-      <h2 className="text-xl font-bold mb-4">React Hooks Examples</h2>
-      <ul className="space-y-2">
+    <div>
+      <h2>React Hooks</h2>
+      <ul>
         {hooks.map((hook) => (
           <li key={hook}>
-            <button onClick={() => setSelectedHook(hook)} className="text-blue-500 hover:underline">
-              {hook}
-            </button>
+            <Link to={`/hooks/${hook}`}>{hook}</Link>
           </li>
         ))}
       </ul>
